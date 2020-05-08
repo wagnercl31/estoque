@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block content %}
 
 <div class="page-header">
@@ -16,12 +17,16 @@
             </tr>
         </thead>
         <tbody>
+            {% for object in object_list %}
             <tr>
-                <td>{{ object.produto}}</td>
+                <td>
+                    <a href="{{ object.get_absolute_url }}">{{ object.produto }}</a>
+                </td>
                 <td>R$ <span class="pull-right">{{ object.preco }}</span></td>
                 <td class="text-center">{{ object.estoque }}</td>
                 <td class="text-center">{{ object.estoque_minimo }}</td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
     {% else %}
