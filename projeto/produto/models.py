@@ -19,3 +19,9 @@ class Produto(models.Model):
     
         
     
+    def to_dict_json(self):
+        return {
+            'pk': self.pk,
+            'produto': self.produto,
+            'estoque': self.estoque,
+        }   
