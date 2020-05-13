@@ -26,7 +26,40 @@ class Estoque(TimeStampedModel):
 
     def nf_formated(self):
         return str(self.nf).zfill(3)
-    
+
+class EstoqueEntradaManager(models.Manager):
+
+    def get_queryset(self):
+        return super(EstoqueEntradaManager, self).get_queryset().filter(movimento='e')
+
+
+class EstoqueEntrada(Estoque):
+
+    objects = EstoqueEntradaManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = 'estoque entrada'
+        verbose_name_plural = 'estoque entrada'
+
+
+class EstoqueSaidaManager(models.Manager):
+
+    def get_queryset(self):
+        return super(EstoqueSaidaManager, self).get_queryset().filter(movimento='s')
+
+
+class EstoqueSaida(Estoque):
+
+    objects = EstoqueSaidaManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = 'estoque saída'
+        verbose_name_plural = 'estoque saída'
+
+
+
 class EstoqueItens(models.Model):
     estoque = models.ForeignKey(Estoque, on_delete=models.CASCADE, related_name="estoques")
     produto = models.ForeignKey('produto.Produto', on_delete=models.CASCADE)
