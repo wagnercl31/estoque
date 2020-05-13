@@ -2,17 +2,6 @@
 
 {% load widget_tweaks %}
 
-{% block css %}
-  <style>
-    span.required:after {
-      content: "*";
-      color: red;
-    }
-  </style>
-{% endblock %}
-
-{% block content %}
-
 <form method="POST" novalidate>
   {% csrf_token %}
   {% for field in form.visible_fields %}
