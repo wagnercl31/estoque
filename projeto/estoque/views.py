@@ -44,11 +44,6 @@ class EstoqueEntradaList(ListView):
 class EstoqueDetail(DetailView):
   model = Estoque
   template_name = 'estoque_detail.html'
-  
-
-  
-    
-
 
 
 def dar_baixa_estoque(form):
@@ -94,7 +89,7 @@ def estoque_add(request, template_name, movimento, url):
 def estoque_entrada_add(request):
   template_name = 'estoque_entrada_form.html'
   movimento = 'e'
-  url = 'estoque:estoque_entrada_detail'
+  url = 'estoque:estoque_detail'
   context = estoque_add(request, template_name, movimento, url)
   if context.get('pk'):
     return HttpResponseRedirect(resolve_url(url, context.get('pk')))
@@ -140,7 +135,7 @@ class EstoqueSaidaList(ListView):
 def estoque_saida_add(request):
   template_name = 'estoque_saida_form.html'
   movimento = 's'
-  url = 'estoque:estoque_saida_detail'
+  url = 'estoque:estoque_detail'
   context = estoque_add(request, template_name, movimento, url)
   if context.get('pk'):
       return HttpResponseRedirect(resolve_url(url, context.get('pk')))
