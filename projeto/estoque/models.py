@@ -25,13 +25,11 @@ class Estoque(TimeStampedModel):
             return '{} - {} - {}'.format(self.pk, self.nf, self.created.strftime('%d-%m-%Y'))
         return '{} --- {}'.format(self.pk, self.created.strftime('%d-%m-%Y'))
 
-    
 
     def nf_formated(self):
         if self.nf:
             return str(self.nf).zfill(3)
         return '---'
-
 
 
 class EstoqueEntrada(Estoque):
@@ -42,10 +40,7 @@ class EstoqueEntrada(Estoque):
         proxy = True
         verbose_name = 'estoque entrada'
         verbose_name_plural = 'estoque entrada'
-    
-    def get_absolute_url(self):
-        return reverse_lazy('estoque:estoque_entrada_detail', kwargs={'pk': self.pk})
-
+ 
 
 class EstoqueSaida(Estoque):
 
@@ -55,10 +50,6 @@ class EstoqueSaida(Estoque):
         proxy = True
         verbose_name = 'estoque saída'
         verbose_name_plural = 'estoque saída'
-    
-    def get_absolute_url(self):
-        return reverse_lazy('estoque:estoque_saida_detail', kwargs={'pk': self.pk})
-
 
 
 class EstoqueItens(models.Model):

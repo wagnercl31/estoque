@@ -38,15 +38,15 @@ class EstoqueEntradaList(ListView):
 #     }
 #   return render(request, template_name, context)
 
-#class based view (CBV)
-class EstoqueEntradaDetail(DetailView):
-  model = EstoqueEntrada
-  template_name = 'estoque_detail.html'
 
-  def get_context_data(self, **kwargs):
-    context = super(EstoqueEntradaDetail, self).get_context_data(**kwargs)
-    context['url_list'] = 'estoque:estoque_entrada_list' 
-    return context
+
+#class based view (CBV)
+class EstoqueDetail(DetailView):
+  model = Estoque
+  template_name = 'estoque_detail.html'
+  
+
+  
     
 
 
@@ -89,6 +89,7 @@ def estoque_add(request, template_name, movimento, url):
       formset =  item_estoque_formset(instance=estoque_form, prefix='estoque')
   context = {'form': form, 'formset': formset}
   return context
+
 
 def estoque_entrada_add(request):
   template_name = 'estoque_entrada_form.html'
@@ -134,15 +135,6 @@ class EstoqueSaidaList(ListView):
 #   return render(request, template_name, context)
 
 
-#class based view (CBV)
-class EstoqueSaidaDetail(DetailView):
-  model = EstoqueSaida
-  template_name = 'estoque_detail.html'
-
-  def get_context_data(self, **kwargs):
-    context = super(EstoqueSaidaDetail, self).get_context_data(**kwargs)
-    context['url_list'] = 'estoque:estoque_saida_list' 
-    return context
 
 
 def estoque_saida_add(request):
