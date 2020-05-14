@@ -1,13 +1,13 @@
 from django.shortcuts import render, resolve_url
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from projeto.produto.models import Produto
 from .models import Estoque, EstoqueEntrada, EstoqueSaida, EstoqueItens
 from .forms import EstoqueForm, EstoqueItensForm
 
 
-
+#function based view
 # def estoque_entrada_list(request):
 #   template_name = 'estoque_list.html'
 #   objects = EstoqueEntrada.objects.all()
@@ -28,14 +28,27 @@ class EstoqueEntradaList(ListView):
         context['url_add'] = 'estoque:estoque_entrada_add'
         return context
 
-def estoque_entrada_detail(request, pk):
+#function based view
+# def estoque_entrada_detail(request, pk):
+#   template_name = 'estoque_detail.html'
+#   obj = EstoqueEntrada.objects.get(pk=pk)
+#   context = {
+#     'object': obj,
+#     'url_list': 'estoque:estoque_entrada_list'
+#     }
+#   return render(request, template_name, context)
+
+#class based view (CBV)
+class EstoqueEntradaDetail(DetailView):
+  model = EstoqueEntrada
   template_name = 'estoque_detail.html'
-  obj = EstoqueEntrada.objects.get(pk=pk)
-  context = {
-    'object': obj,
-    'url_list': 'estoque:estoque_entrada_list'
-    }
-  return render(request, template_name, context)
+
+  def get_context_data(self, **kwargs):
+    context = super(EstoqueEntradaDetail, self).get_context_data(**kwargs)
+    context['url_list'] = 'estoque:estoque_entrada_list' 
+    return context
+    
+
 
 
 def dar_baixa_estoque(form):
@@ -87,6 +100,7 @@ def estoque_entrada_add(request):
   return render(request, template_name, context)
 
 
+#function based view
 # def estoque_saida_list(request):
 #   template_name = 'estoque_list.html'
 #   objects = EstoqueSaida.objects.all()
@@ -98,7 +112,7 @@ def estoque_entrada_add(request):
 #   return render(request, template_name, context)
 
 
-
+#class based view (CBV)
 class EstoqueSaidaList(ListView):
     model = EstoqueSaida
     template_name = 'estoque_list.html'
@@ -109,14 +123,26 @@ class EstoqueSaidaList(ListView):
         context['url_add'] = 'estoque:estoque_saida_add'
         return context
 
-def estoque_saida_detail(request, pk):
+#function based view
+# def estoque_saida_detail(request, pk):
+#   template_name = 'estoque_detail.html'
+#   obj = EstoqueSaida.objects.get(pk=pk)
+#   context = {
+#     'object': obj,
+#     'url_list': 'estoque:estoque_saida_list'
+#     }
+#   return render(request, template_name, context)
+
+
+#class based view (CBV)
+class EstoqueSaidaDetail(DetailView):
+  model = EstoqueSaida
   template_name = 'estoque_detail.html'
-  obj = EstoqueSaida.objects.get(pk=pk)
-  context = {
-    'object': obj,
-    'url_list': 'estoque:estoque_saida_list'
-    }
-  return render(request, template_name, context)
+
+  def get_context_data(self, **kwargs):
+    context = super(EstoqueSaidaDetail, self).get_context_data(**kwargs)
+    context['url_list'] = 'estoque:estoque_saida_list' 
+    return context
 
 
 def estoque_saida_add(request):
