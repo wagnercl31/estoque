@@ -6,32 +6,37 @@ $(document).ready(function() {
   $('#id_estoque-0-saldo').prop('type', 'hidden')
   //Cria um span para mostrar o saldo na tela
   $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead" style="padding-left: 10px;"></span>')
-
-  $('#add-item').click(function(ev){
-    ev.preventDefault();
-    var count = $('#estoque').children().length;
-    var tmplMarkup = $('#item-estoque').html();
-    var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
-    $('div#estoque').append(compiledTmpl);
-
-    //update form COUNT
-    $('#id_estoque-TOTAL_FORMS').attr('value', count + 1);
-
-    //Desabilidat todos os campo saldo
-    $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden')
-
-    //some animate to scrooll to view our new form
-    $('html, body').animate({ 
-      scrollTop: $('#add-item').position().top - 200
-    }, 800);
-
-    $('#id_estoque-' + (count) + '-produto').addClass('clProduto');
-    $('#id_estoque-' + (count) + '-quantidade').addClass('clQuantidade');
-
-    //Cria um span para mostrar o saldo na tela
-    $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '0-saldo-span" class="lead" style="padding-left: 10px;"></span>')
-  });
+  //select2
+  $('.clProduto').select2()
 });
+
+    $('#add-item').click(function(ev){
+      ev.preventDefault();
+      var count = $('#estoque').children().length;
+      var tmplMarkup = $('#item-estoque').html();
+      var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+      $('div#estoque').append(compiledTmpl);
+
+      //update form COUNT
+      $('#id_estoque-TOTAL_FORMS').attr('value', count + 1);
+
+      //Desabilidat todos os campo saldo
+      $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden')
+
+      //some animate to scrooll to view our new form
+      $('html, body').animate({ 
+        scrollTop: $('#add-item').position().top - 200
+      }, 800);
+
+      $('#id_estoque-' + (count) + '-produto').addClass('clProduto');
+      $('#id_estoque-' + (count) + '-quantidade').addClass('clQuantidade');
+
+      //Cria um span para mostrar o saldo na tela
+      $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '0-saldo-span" class="lead" style="padding-left: 10px;"></span>')
+      
+      //Select2
+      $('.clProduto').select2()
+    });
 
 let estoque
 let saldo
