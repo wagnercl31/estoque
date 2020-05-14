@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, resolve_url
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
@@ -55,6 +56,7 @@ def dar_baixa_estoque(form):
   print('Estoque atualizado com sucesso.')
 
 
+@login_required
 def estoque_add(request, template_name, movimento, url):
   estoque_form = Estoque()
   item_estoque_formset = inlineformset_factory(
@@ -131,7 +133,7 @@ class EstoqueSaidaList(ListView):
 
 
 
-
+@login_required
 def estoque_saida_add(request):
   template_name = 'estoque_saida_form.html'
   movimento = 's'
