@@ -56,7 +56,7 @@ def dar_baixa_estoque(form):
   print('Estoque atualizado com sucesso.')
 
 
-@login_required
+
 def estoque_add(request, template_name, movimento, url):
   estoque_form = Estoque()
   item_estoque_formset = inlineformset_factory(
@@ -75,7 +75,8 @@ def estoque_add(request, template_name, movimento, url):
       prefix='estoque'
     )
     if form.is_valid() and formset.is_valid():
-        form = form.save()
+        form = form.save(commit=False)
+        form.funcionario = request.user
         form.movimento = movimento
         form.save()
         formset.save()
@@ -87,7 +88,7 @@ def estoque_add(request, template_name, movimento, url):
   context = {'form': form, 'formset': formset}
   return context
 
-
+@login_required
 def estoque_entrada_add(request):
   template_name = 'estoque_entrada_form.html'
   movimento = 'e'
