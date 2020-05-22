@@ -100,7 +100,7 @@ def estoque_entrada_add(request):
   return render(request, template_name, context)
 
 
-#function based view
+# # function based view
 # def estoque_saida_list(request):
 #   template_name = 'estoque_list.html'
 #   objects = EstoqueSaida.objects.all()

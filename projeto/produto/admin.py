@@ -5,6 +5,7 @@ from .models import Produto
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = (
         '__str__',
+        'ncm',
         'preco',
         'estoque',
         'estoque_minimo',

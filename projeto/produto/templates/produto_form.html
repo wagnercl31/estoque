@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
 
 <form method="POST" novalidate>
   {% csrf_token %}
@@ -25,5 +28,7 @@
 {% endblock content %}
 
 {% block js %}
+
+<script src="{% static 'js/produto.js' %}"></script>
 
 {% endblock js %}
