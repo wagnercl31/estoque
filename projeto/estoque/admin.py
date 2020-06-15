@@ -11,7 +11,7 @@ class EstoqueItensInline(admin.TabularInline):
 class EstoqueEntradaAdmin(admin.ModelAdmin):
     inlines = [EstoqueItensInline]
     list_display = ('__str__', 'nf', 'funcionario', )
-    search_fields = ('nf',)
+    search_fields = ('nf', 'estoqueentrada_list',)
     list_filter = ('funcionario',)
     date_hierarchy = 'created'
 

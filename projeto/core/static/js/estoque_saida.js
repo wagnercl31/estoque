@@ -20,7 +20,7 @@ $(document).ready(function() {
 
     $('#id_estoque-TOTAL_FORMS').attr('value', count + 1);
 
-    //Desabilidat todos os campo saldo
+    //Desabilita todos os campo saldo
     $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden')
 
     //some animate to scrooll to view our new form

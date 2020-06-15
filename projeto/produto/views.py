@@ -23,6 +23,7 @@ class ProdutoList(ListView):
     model = Produto
     template_name = 'produto_list.html'
     paginate_by = 10
+    
 
     def get_queryset(self):
         queryset = super(ProdutoList, self).get_queryset()

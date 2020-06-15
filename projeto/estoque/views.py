@@ -5,10 +5,13 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from projeto.produto.models import Produto
 from .models import Estoque, EstoqueEntrada, EstoqueSaida, EstoqueItens
-from .forms import EstoqueForm, EstoqueItensForm
+from .forms import EstoqueForm, EstoqueItensEntradaForm, EstoqueItensSaidaForm
+from projeto.produto.forms import ProdutoForm
+from django.db.models import Q
 
 
-#function based view
+
+# function based view
 # def estoque_entrada_list(request):
 #   template_name = 'estoque_list.html'
 #   objects = EstoqueEntrada.objects.all()
@@ -19,9 +22,20 @@ from .forms import EstoqueForm, EstoqueItensForm
 #     }
 #   return render(request, template_name, context)
 
+
+def estoque_list(request):
+    template_name = 'estoque_list.html'
+    objects = EstoqueEntradaList.objects.all()
+    search = request.GET.get('search')
+    if search:
+        objects = objects.filter(produto__icontains=search)
+    context = {'object_list': objects}
+    return render(request, template_name, context)
+
 class EstoqueEntradaList(ListView):
     model = EstoqueEntrada
     template_name = 'estoque_list.html'
+
 
     def get_context_data(self, **kwargs):
         context = super(EstoqueEntradaList, self).get_context_data(**kwargs)
@@ -29,7 +43,17 @@ class EstoqueEntradaList(ListView):
         context['url_add'] = 'estoque:estoque_entrada_add'
         return context
 
-#function based view
+    def get_queryset(self):
+      queryset = super(EstoqueEntradaList, self).get_queryset()
+      search = self.request.GET.get('search')
+      if search:
+          queryset = queryset.filter(
+              Q(estoques__produto__produto__icontains=search)
+          )
+      return queryset
+
+
+# function based view
 # def estoque_entrada_detail(request, pk):
 #   template_name = 'estoque_detail.html'
 #   obj = EstoqueEntrada.objects.get(pk=pk)
@@ -57,12 +81,12 @@ def dar_baixa_estoque(form):
 
 
 
-def estoque_add(request, template_name, movimento, url):
+def estoque_add(request, form_inline, template_name, movimento, url):
   estoque_form = Estoque()
   item_estoque_formset = inlineformset_factory(
     Estoque,
     EstoqueItens,
-    form=EstoqueItensForm,
+    form=form_inline,
     extra=0,
     can_delete=False,
     min_num=1,
@@ -91,10 +115,11 @@ def estoque_add(request, template_name, movimento, url):
 
 @login_required
 def estoque_entrada_add(request):
+  form_inline = EstoqueItensEntradaForm
   template_name = 'estoque_entrada_form.html'
   movimento = 'e'
   url = 'estoque:estoque_detail'
-  context = estoque_add(request, template_name, movimento, url)
+  context = estoque_add(request,form_inline, template_name, movimento, url)
   if context.get('pk'):
     return HttpResponseRedirect(resolve_url(url, context.get('pk')))
   return render(request, template_name, context)
@@ -122,6 +147,16 @@ class EstoqueSaidaList(ListView):
         context['titulo'] = 'Saída'
         context['url_add'] = 'estoque:estoque_saida_add'
         return context
+      
+    
+    def get_queryset(self):
+      queryset = super(EstoqueSaidaList, self).get_queryset()
+      search = self.request.GET.get('search')
+      if search:
+          queryset = queryset.filter(
+              Q(estoques__produto__produto__icontains=search)
+          )
+      return queryset
 
 #function based view
 # def estoque_saida_detail(request, pk):
@@ -137,10 +172,11 @@ class EstoqueSaidaList(ListView):
 
 @login_required
 def estoque_saida_add(request):
+  form_inline = EstoqueItensSaidaForm
   template_name = 'estoque_saida_form.html'
   movimento = 's'
   url = 'estoque:estoque_detail'
-  context = estoque_add(request, template_name, movimento, url)
+  context = estoque_add(request,form_inline, template_name, movimento, url)
   if context.get('pk'):
       return HttpResponseRedirect(resolve_url(url, context.get('pk')))
   return render(request, template_name, context)
