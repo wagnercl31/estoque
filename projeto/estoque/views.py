@@ -35,6 +35,7 @@ def estoque_list(request):
 class EstoqueEntradaList(ListView):
     model = EstoqueEntrada
     template_name = 'estoque_list.html'
+    
 
 
     def get_context_data(self, **kwargs):

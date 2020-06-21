@@ -2,11 +2,42 @@
 
  {% block content %}
 
+<style>
+    body{
+        background-image: url(https://lh3.googleusercontent.com/proxy/YDfIPIszbLSJopbkSNdLnoUEZZXBSBnSq2ry48T5YyTg-MrJKV0hfl4EVXX-JT8RydlL7Rc83S5ABhFRulSGMuMLoIA0FEsTo6vN0CrGKa6-P9xCGfCCiIIBa_4);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        height: 909px;
+        opacity: 1;
+    }
+        .jumbotron {
+        padding: 4rem 2rem;
+        top: 50%;
+        position: absolute;
+        transform: translateY(-50%) translateX(-50%);
+        margin: o auto; 
+        left: 50%;
+    }
+        p{
+        margin: 15px 0px 10px;
+    }
+
+</style>
     <div class="jumbotron">
         <div class="container">
-            <h1>Bem-vindo</h1>
-            <p>Este é um sistema para controle de estoque.</p>
+            <h1>Bem-vindo ao controle de estoque</h1>
+            <p>Acesse Produtos para verificar o estoque</p>
+            <span class="pull-left">
+        <a href="{% url 'produto:produto_list' %}">
+            <button type="button" class="btn btn-success">
+                <span class="btn btn-success">Produtos</span>
+            </button>
+        </a>
+    </span>
         </div>
     </div>
+    
+
     
  {% endblock content %}
