@@ -1,8 +1,10 @@
+import datetime
 from django.contrib.auth.models import User
 from django.db import models
 from projeto.core.models import TimeStampedModel
 from projeto.produto.models import Produto
 from .managers import EstoqueEntradaManager, EstoqueSaidaManager
+from django.core.validators import MinValueValidator 
 
 
 MOVIMENTO = (
@@ -13,8 +15,9 @@ MOVIMENTO = (
 
 class Estoque(TimeStampedModel):
     funcionario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    nf = models.PositiveIntegerField('nota fiscal', null=True, blank=True)
+    nf = models.PositiveIntegerField('nota fiscal', null=True, blank=False)
     movimento = models.CharField(max_length=1, choices=MOVIMENTO, blank=True)
+    data_entrada = models.DateField(default=datetime.datetime.now(), null=True, blank=False)
 
     class Meta:
         ordering = ('-created',)
@@ -54,7 +57,7 @@ class EstoqueSaida(Estoque):
 class EstoqueItens(models.Model):
     estoque = models.ForeignKey(Estoque, on_delete=models.CASCADE, related_name="estoques")
     produto = models.ForeignKey('produto.Produto', on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField()
+    quantidade = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     saldo = models.PositiveIntegerField(blank=True)
 
     class Meta:

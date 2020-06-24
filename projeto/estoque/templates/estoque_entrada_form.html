@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% load widget_tweaks %}
-{% load bootstrap %}
+{% load crispy_forms_tags %}
+
 
 {% block css %}
 
@@ -19,7 +20,7 @@
 
 
 <div class="row">
-  <div class="cols">
+  <div class="col">
     <form method="POST" novalidate>
       {% csrf_token %}
       <legend style="border-bottom: 1px solid #e5e5e5;">Estoque entrada</legend>
@@ -41,16 +42,16 @@
               {% endfor %}
             </div>
           {% endfor %}
-         {{ formset.management_form }}
+         {{ formset.management_form|crispy }}
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
           <legend style="border-bottom: 1px solid #e5e5e5;">Produtos</legend>
-          <div id="estoque" class="form-inline">
+          <div id="estoque" class="form-inline linha">
             {% for intem_estoque_form in formset %}
-              <div id="item-{{ forloop.counter0 }}" class="form-group">
-                {{ intem_estoque_form|bootstrap }}
+              <div id="item-{{ forloop.counter0 }}" class="form-group linha" >
+                {{ intem_estoque_form|crispy }}
               </div>
             {% endfor %}
           </div>
@@ -70,7 +71,7 @@
               <i class="fa fa-floppy-o"></i>
                 Salvar
             </button>
-            <a href="{% url 'estoque:estoque_entrada_list'" class="btn btn-danger">
+            <a href="{% url 'estoque:estoque_entrada_list' %}" class="btn btn-danger">
               <i class="fa fa-times"></i>
               Cancelar
             </a>
@@ -91,7 +92,7 @@
 
 <script type="text/html" id="item-estoque">
   <div id="item-__prefix" class="form-group">
-    {{ formset.empty_form|bootstrap }}
+    {{ formset.empty_form|crispy }}
   </div>
 
 </script>

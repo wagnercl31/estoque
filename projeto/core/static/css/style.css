@@ -13,3 +13,25 @@ span.required:after {
   color: red;
 }
 
+form div.linha div.form-group {
+  margin: 0 5px;
+} b 
+
+
+form div.linha label {
+  margin-right: 5px;
+}
+
+button{
+    margin: 0 10px;
+}
+
+.pagination {
+   justify-content: center;
+}
+
+.container {
+  background-color: #bbc1b4;;
+  padding: 30px 20px;
+}
+

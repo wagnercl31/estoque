@@ -8,8 +8,7 @@ $(document).ready(function() {
   $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead" style="padding-left:10px"></span>')
 
   $('label[for="id_estoque-0-saldo"]').append('<input id="id_estoque-0-inicial" class="form-control" type="hidden" />')
-  // select2
-  $('.clProduto').select2()
+
 
   $('#add-item').click(function(ev){
     ev.preventDefault();
@@ -35,8 +34,7 @@ $(document).ready(function() {
     $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '-saldo-span" class="lead" style="padding-left:10px"></span>')
     //cria um campo com estoque inicial
     $('label[for="id_estoque-' + (count) + '-saldo"]').append('<input id="id_estoque-' + (count) + '-inicial" class="form-control" type="hidden" />')
-    //select2
-    $('.clProduto').select2()
+
   });
 });
 

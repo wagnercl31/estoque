@@ -41,12 +41,14 @@ INSTALLED_APPS = [
     #apps terceiros
     'django_extensions',
     'widget_tweaks',
-    'bootstrapform',
+    'crispy_forms',
     #my apps
     'projeto.core',
     'projeto.produto',
     'projeto.estoque',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +61,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'projeto.urls'
+
 
 TEMPLATES = [
     {

@@ -1,43 +1,72 @@
 {% extends "base.html" %}
 
- {% block content %}
+
+{% block content %}
+ 
 
 <style>
     body{
-        background-image: url(https://lh3.googleusercontent.com/proxy/YDfIPIszbLSJopbkSNdLnoUEZZXBSBnSq2ry48T5YyTg-MrJKV0hfl4EVXX-JT8RydlL7Rc83S5ABhFRulSGMuMLoIA0FEsTo6vN0CrGKa6-P9xCGfCCiIIBa_4);
+        background-image: url(/static/imagens/belissima.jpg);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
         height: 909px;
         opacity: 1;
     }
-        .jumbotron {
-        padding: 4rem 2rem;
-        top: 50%;
-        position: absolute;
-        transform: translateY(-50%) translateX(-50%);
-        margin: o auto; 
-        left: 50%;
-    }
-        p{
+        
+        
+    
+    p{
         margin: 15px 0px 10px;
     }
 
+    .container{
+        background: transparent !important;
+        margin-top: 80px;
+    }
+
+    .content{
+        padding: 20px 30px;
+        border-radius: 5px;
+        background: white;
+        margin-top: 30px;
+    }
+
+
 </style>
-    <div class="jumbotron">
-        <div class="container">
+    <div class="container">
+        <div class="content">
             <h1>Bem-vindo ao controle de estoque</h1>
             <p>Acesse Produtos para verificar o estoque</p>
-            <span class="pull-left">
-        <a href="{% url 'produto:produto_list' %}">
-            <button type="button" class="btn btn-success">
-                <span class="btn btn-success">Produtos</span>
-            </button>
-        </a>
-    </span>
+            <span class="">
+                <a href="{% url 'produto:produto_list' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="btn btn-success">Produtos</span>
+                    </button>
+                </a>
+            </span>
+        </div>
+        
+        <div class="content">
+            <h1>Produtos em baixa</h1>
+            <table>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                </tr>
+                {%  for item in relatorio %}
+                <tr>
+                    <td>{{item.produto}} </td>
+                    <td>{{ item.estoque}} </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">
+                        Não possui possui produtos em baixa
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
-    
-
-    
  {% endblock content %}
